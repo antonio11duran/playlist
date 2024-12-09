@@ -8,9 +8,6 @@
 
 using namespace std;
 
-// class test_DoubleLL : public ::testing::Test {
-// };
-
 TEST(test_DoubleLL, InitTest) {
     DoublyLL playlist;
     ASSERT_FALSE(playlist.get_first_song());
