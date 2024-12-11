@@ -97,6 +97,16 @@ void DoublyLL::remove_song(song* deleted_song) {
     after->prev = before;
 }
 
+int DoublyLL::playlist_size() {
+    int size = 0;
+    song* cursor = first_song;
+    while (cursor != NULL) {
+        cursor = cursor->next;
+        size++;
+    }
+    return size;
+}
+
 void DoublyLL::set_top(song* first_song_) {
     first_song = first_song_;
 }

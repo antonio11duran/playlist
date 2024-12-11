@@ -34,6 +34,8 @@ public:
 
     void remove_song(song* deleted_song);
 
+    int playlist_size();
+
     song* get_first_song();
 
     void set_top(song* first_song_);

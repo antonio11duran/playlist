@@ -143,3 +143,14 @@ TEST(test_DoubleLL, RemoveAllSongsTest) {
     ASSERT_FALSE(throttle->next);
     ASSERT_FALSE(throttle->prev);
 }
+
+TEST(test_DoubleLL, SizeTest) {
+    DoublyLL playlist;
+    ASSERT_EQ(0, playlist.playlist_size());
+    song* three = build_three_song_playlist();
+    playlist.set_top(three);
+    ASSERT_EQ(3, playlist.playlist_size());
+    song* throttle = playlist.find_song("Japan", "Throttle");
+    playlist.remove_song(throttle);
+    ASSERT_EQ(2, playlist.playlist_size());
+}
