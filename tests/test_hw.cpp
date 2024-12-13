@@ -154,3 +154,37 @@ TEST(test_DoubleLL, SizeTest) {
     playlist.remove_song(throttle);
     ASSERT_EQ(2, playlist.playlist_size());
 }
+
+TEST(test_DoubleLL, InsertTest) {
+    DoublyLL playlist;
+    song* three = build_three_song_playlist();
+    playlist.set_top(three);
+    song* taylor = playlist.find_song("Shake it Off", "Taylor Swift");
+    song* juanes = playlist.find_song("La Camisa Negra", "Juanes");
+    song* throttle = playlist.find_song("Japan", "Throttle");
+    // Insert at beginning
+    song* ph = playlist.init_song("1901", "Phoenix");
+    playlist.insert_at_specific_spot(1, ph);
+    // Should be ph, taylor, juanes, throttle
+    ASSERT_EQ(ph, playlist.get_first_song());
+    ASSERT_EQ(taylor, ph->next);
+    ASSERT_EQ(ph, taylor->prev);
+    ASSERT_FALSE(ph->prev);
+
+    // Insert at middle
+    song* inter = playlist.init_song("Evil", "Interpol");
+    playlist.insert_at_specific_spot(3, inter);
+    // Should be ph, taylor, inter, juanes, throttle
+    ASSERT_EQ(inter, taylor->next);
+    ASSERT_EQ(inter, juanes->prev);
+    ASSERT_EQ(taylor, inter->prev);
+    ASSERT_EQ(juanes, inter->next);
+
+    // Insert at end
+    song* smash = playlist.init_song("All Star", "Smash Mouth");
+    playlist.insert_at_specific_spot(6, smash);
+    // Should be ph, taylor, inter, juanes, throttle, smash
+    ASSERT_EQ(smash, throttle->next);
+    ASSERT_EQ(throttle, smash->prev);
+    ASSERT_FALSE(smash->next);
+}

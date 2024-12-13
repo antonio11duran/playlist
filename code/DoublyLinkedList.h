@@ -22,15 +22,17 @@ public:
 
     string display_playlist();
 
-    string current_song(); // might need to switch to a private cursor?
-
     song* next_song(song* current_song);
 
     song* prev_song(song* current_song);
 
     void add_song(string title, string artist);
 
+    void add_song_node(song* new_song);
+
     song* find_song(string title, string artist);
+
+    void insert_at_specific_spot(int location, song* song_to_add);
 
     void remove_song(song* deleted_song);
 

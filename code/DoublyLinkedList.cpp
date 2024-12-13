@@ -27,10 +27,6 @@ string DoublyLL::display_playlist() {
     return playlist;
 }
 
-string DoublyLL::current_song() {
-    return "";
-}
-
 song* DoublyLL::next_song(song* current_song) {
     return current_song->next;
 }
@@ -40,7 +36,10 @@ song* DoublyLL::prev_song(song* current_song) {
 }
 
 void DoublyLL::add_song(string title, string artist) {
-    song* new_song = init_song(title, artist);
+    add_song_node(init_song(title, artist));
+}
+
+void DoublyLL::add_song_node(song* new_song) {
     song* cursor = first_song;
     if (cursor == NULL) {
         first_song = new_song;
@@ -67,6 +66,32 @@ song* DoublyLL::find_song(string title, string artist) {
         cursor = cursor->next;
     }
     return NULL;
+}
+
+void DoublyLL::insert_at_specific_spot(int location, song* song_to_add) {
+    song* cursor = first_song;
+    int i = 1;
+    if (location < 1 || location > playlist_size() + 1 || cursor == NULL) {
+        return;
+    }
+    if (location == 1) {
+        song_to_add->next = cursor;
+        cursor->prev = song_to_add;
+        set_top(song_to_add);
+        return;
+    }
+    if (location == playlist_size() + 1) {
+        add_song_node(song_to_add);
+        return;
+    }
+    while (i != location) {
+        cursor = cursor->next;
+        i++;
+    }
+    song_to_add->next = cursor;
+    song_to_add->prev = cursor->prev;
+    cursor->prev->next = song_to_add;
+    cursor->prev = song_to_add;
 }
 
 void DoublyLL::remove_song(song* deleted_song) {
